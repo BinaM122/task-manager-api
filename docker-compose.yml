@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: ./task_manager
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./task_manager:/app
+    restart: unless-stopped
+
+  frontend:
+    build: ./task-manager-ui
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./task-manager-ui:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
